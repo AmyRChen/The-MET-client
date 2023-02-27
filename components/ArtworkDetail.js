@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Link from "next/link";
 
-function ArtworkCard(props) {
+function ArtworkDetail(props) {
   const { data, error } = useSWR(
     `https://collectionapi.metmuseum.org/public/collection/v1/objects/${props.objectID}`
   );
@@ -60,4 +60,4 @@ function ArtworkCard(props) {
   }
 }
 
-export default ArtworkCard;
+export default ArtworkDetail;
