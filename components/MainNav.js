@@ -1,7 +1,18 @@
 import { Container, Nav, Navbar, Form, Button } from "react-bootstrap";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
 function MainNav() {
+  const router = useRouter();
+  const [searchVal, setSearchVal] = useState("searchVal");
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log(searchVal);
+    router.push(`/artwork?title=true&q=${searchVal}`);
+  }
+
   return (
     <>
       <Navbar bg="dark" expand="lg" variant="dark" className="fixed-top">
@@ -24,7 +35,11 @@ function MainNav() {
                 className="me-2"
                 aria-label="Search"
               />
-              <Button variant="outline-success" type="submit">
+              <Button
+                variant="outline-success"
+                type="submit"
+                onClick={handleSubmit}
+              >
                 Search
               </Button>
             </Form>
@@ -33,6 +48,7 @@ function MainNav() {
       </Navbar>
       <br />
       <br />
+      debug:{searchVal}
     </>
   );
 }

@@ -1,15 +1,19 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { Row, Col, Pagination } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
+import useSWR from "swr";
+import ArtworkCard from "@/components/ArtworkCard";
 
 function Artwork() {
   const PER_PAGE = 12;
-  const [artworkList, setArtworkList] = useState();
+  const [artworkList, setArtworkList] = useState(null);
   const [page, setPage] = useState(1);
   //Apply useRouter to get the full value of the query string
   const router = useRouter();
   let finalQuery = router.asPath.split("?")[1];
-  const [data, error] = fetch(
+
+  const { data, error } = useSWR(
     `https://collectionapi.metmuseum.org/public/collection/v1/search?${finalQuery}`
   );
   if (error) return <Error statusCode={404} />;
@@ -37,48 +41,47 @@ function Artwork() {
       setArtworkList(results);
     }
   }, [data]);
-}
-
-if (artworkList) {
-  return (
-    <>
-      <Row className="gy-4">
-        {artworkList.length > 0 ? (
-          artworkList[page - 1].map(
-            (
-              art //CHECK
-            ) => (
-              <Col lg={3} key={art.objectID}>
-                <ArtworkCard objectID={art.objectID} />
-              </Col>
+  if (artworkList) {
+    return (
+      <>
+        <Row className="gy-4">
+          {artworkList.length > 0 ? (
+            artworkList[page - 1].map(
+              (
+                art //CHECK
+              ) => (
+                <Col lg={3} key={art.objectID}>
+                  <ArtworkCard objectID={art.objectID} />
+                </Col>
+              )
             )
-          )
-        ) : (
-          <Card>
-            <Card.Body>
-              <h4>Nothing Here</h4>
-              Try searching for something else.
-            </Card.Body>
-          </Card>
-        )}
-      </Row>
-      <Row>
-        {artworkList.length > 0 ? (
-          <Col>
-            <Pagination>
-              <Pagination.Prev onClick={previousPage} />
-              <Pagination.Item>{page}</Pagination.Item>
-              <Pagination.Next onClick={nextPage} />
-            </Pagination>
-          </Col>
-        ) : (
-          ""
-        )}
-      </Row>
-    </>
-  );
-} else {
-  return null;
+          ) : (
+            <Card>
+              <Card.Body>
+                <h4>Nothing Here</h4>
+                Try searching for something else.
+              </Card.Body>
+            </Card>
+          )}
+        </Row>
+        <Row>
+          {artworkList.length > 0 ? (
+            <Col>
+              <Pagination>
+                <Pagination.Prev onClick={previousPage} />
+                <Pagination.Item>{page}</Pagination.Item>
+                <Pagination.Next onClick={nextPage} />
+              </Pagination>
+            </Col>
+          ) : (
+            ""
+          )}
+        </Row>
+      </>
+    );
+  } else {
+    return null;
+  }
 }
 
 export default Artwork;

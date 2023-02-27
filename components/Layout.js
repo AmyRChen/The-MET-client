@@ -6,6 +6,7 @@ function Layout(props) {
     <>
       <MainNav />
       <br />
+      <br />
       <Container>{props.children}</Container>
       <br />
     </>
