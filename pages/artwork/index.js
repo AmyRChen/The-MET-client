@@ -7,7 +7,7 @@ import ArtworkCard from "@/components/ArtworkCard";
 
 function Artwork() {
   const PER_PAGE = 12;
-  const [artworkList, setArtworkList] = useState(null);
+  const [artworkList, setArtworkList] = useState([]);
   const [page, setPage] = useState(1);
   //Apply useRouter to get the full value of the query string
   const router = useRouter();
@@ -16,7 +16,6 @@ function Artwork() {
   const { data, error } = useSWR(
     `https://collectionapi.metmuseum.org/public/collection/v1/search?${finalQuery}`
   );
-  if (error) return <Error statusCode={404} />;
 
   function previousPage(e) {
     if (page > 1) {
@@ -39,22 +38,23 @@ function Artwork() {
         results.push(chunk);
       }
       setArtworkList(results);
+      setPage(1); //CHECK
     }
   }, [data]);
+
+  if (error) return <Error statusCode={404} />;
   if (artworkList) {
     return (
       <>
         <Row className="gy-4">
           {artworkList.length > 0 ? (
-            artworkList[page - 1].map(
-              (
-                art //CHECK
-              ) => (
-                <Col lg={3} key={art.objectID}>
-                  <ArtworkCard objectID={art.objectID} />
+            artworkList[page - 1].map((art) => {
+              return (
+                <Col lg={3} key={art}>
+                  <ArtworkCard objectID={art} />
                 </Col>
-              )
-            )
+              );
+            })
           ) : (
             <Card>
               <Card.Body>
@@ -67,6 +67,7 @@ function Artwork() {
         <Row>
           {artworkList.length > 0 ? (
             <Col>
+              <br />
               <Pagination>
                 <Pagination.Prev onClick={previousPage} />
                 <Pagination.Item>{page}</Pagination.Item>

@@ -9,7 +9,7 @@ function MainNav() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(searchVal);
+    //console.log(searchVal); //Comment latter
     router.push(`/artwork?title=true&q=${searchVal}`);
   }
 
@@ -28,18 +28,17 @@ function MainNav() {
                 <Nav.Link>Advanced Search</Nav.Link>
               </Link>
             </Nav>
-            <Form className="d-flex">
+            <Form className="d-flex" onSubmit={handleSubmit}>
               <Form.Control
                 type="search"
                 placeholder="Search"
                 className="me-2"
                 aria-label="Search"
+                onChange={(e) => {
+                  setSearchVal(e.target.value);
+                }}
               />
-              <Button
-                variant="outline-success"
-                type="submit"
-                onClick={handleSubmit}
-              >
+              <Button variant="success" type="submit">
                 Search
               </Button>
             </Form>
@@ -48,7 +47,6 @@ function MainNav() {
       </Navbar>
       <br />
       <br />
-      debug:{searchVal}
     </>
   );
 }

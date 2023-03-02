@@ -56,6 +56,7 @@ function Search() {
             name="searchBy"
             className="mb-3"
             {...register("searchBy")}
+            defaultValue="title"
           >
             <option value="title">Title</option>
             <option value="tags">Tags</option>
@@ -110,7 +111,7 @@ function Search() {
       <Row>
         <Col>
           <br />
-          <Button variant="primary" type="submit" {...register("isOnView")}>
+          <Button variant="success" type="submit" {...register("isOnView")}>
             Submit
           </Button>
         </Col>
