@@ -4,6 +4,7 @@ import { Row, Col, Pagination } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import useSWR from "swr";
 import ArtworkCard from "@/components/ArtworkCard";
+import Error from "next/error";
 
 function Artwork() {
   const PER_PAGE = 12;
