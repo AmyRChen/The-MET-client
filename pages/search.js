@@ -11,7 +11,7 @@ function Search() {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      searchBy: "", // the documentation encourages default values
+      searchBy: "title", // the documentation encourages default values
       geoLocation: "",
       medium: "",
       isOnView: false,
@@ -43,7 +43,7 @@ function Search() {
               type="text"
               placeholder=""
               name="q"
-              {...register("q", { required: "Search Query is required." })}
+              {...register("q", { required: true })}
               className={errors.q && "is-invalid"}
             />
           </Form.Group>
@@ -57,9 +57,7 @@ function Search() {
             className="mb-3"
             {...register("searchBy")}
           >
-            <option value="title" selected>
-              Title
-            </option>
+            <option value="title">Title</option>
             <option value="tags">Tags</option>
             <option value="artistOrCulture">Artist or Culture</option>
           </Form.Select>
@@ -100,19 +98,24 @@ function Search() {
       </Row>
       <Row>
         <Col>
-          <Form.Check type="checkbox" label="Highlighted" name="isHighlight" />
+          <Form.Check
+            type="checkbox"
+            label="Highlighted"
+            name="isHighlight"
+            {...register("isHighlight")}
+          />
           <Form.Check
             type="checkbox"
             label="Currently on View"
             name="isOnView"
-            {...register("isHighlight")}
+            {...register("isOnView")}
           />
         </Col>
       </Row>
       <Row>
         <Col>
           <br />
-          <Button variant="success" type="submit" {...register("isOnView")}>
+          <Button variant="success" type="submit">
             Submit
           </Button>
         </Col>

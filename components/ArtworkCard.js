@@ -2,6 +2,7 @@ import useSWR from "swr";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Link from "next/link";
+import Error from "next/error";
 
 function ArtworkCard(props) {
   const { data, error } = useSWR(

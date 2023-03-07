@@ -57,9 +57,9 @@ function Artwork() {
     return (
       <>
         <Row className="gy-4">
-          {artworkList[page - 1].map((art) => (
-            <Col lg={3} key={art}>
-              <ArtworkCard objectID={art} />
+          {artworkList[page - 1]?.map((objID) => (
+            <Col lg={3} key={objID}>
+              <ArtworkCard objectID={objID} />
             </Col>
           ))}
         </Row>
