@@ -20,7 +20,7 @@ function ArtworkCard(props) {
           }
         />
         <Card.Body>
-          {data.title ? <Card.Title>{data.title}</Card.Title> : "N/A"}
+          <Card.Title>{data.title ? data.title : "N/A"}</Card.Title>
           <Card.Text>
             <strong>Date: </strong>
             {data.objectDate ? <>{data.objectDate}</> : "N/A"}

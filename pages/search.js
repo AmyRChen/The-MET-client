@@ -56,9 +56,10 @@ function Search() {
             name="searchBy"
             className="mb-3"
             {...register("searchBy")}
-            defaultValue="title"
           >
-            <option value="title">Title</option>
+            <option value="title" selected>
+              Title
+            </option>
             <option value="tags">Tags</option>
             <option value="artistOrCulture">Artist or Culture</option>
           </Form.Select>

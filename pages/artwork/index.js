@@ -17,18 +17,6 @@ function Artwork() {
     `https://collectionapi.metmuseum.org/public/collection/v1/search?${finalQuery}`
   );
 
-  function previousPage(e) {
-    if (page > 1) {
-      setPage((prevPage) => prevPage - 1);
-    }
-  }
-
-  function nextPage(e) {
-    if (page < data.artworkList.length) {
-      setPage((prevPage) => prevPage + 1);
-    }
-  }
-
   useEffect(() => {
     if (data) {
       let results = [];
@@ -38,50 +26,55 @@ function Artwork() {
         results.push(chunk);
       }
       setArtworkList(results);
-      setPage(1); //CHECK
+      setPage(1);
     }
   }, [data]);
 
+  function previousPage(e) {
+    if (page > 1) {
+      setPage((prevPage) => prevPage - 1);
+    }
+  }
+
+  function nextPage(e) {
+    if (page < artworkList.length) {
+      setPage((prevPage) => prevPage + 1);
+    }
+  }
+
   if (error) return <Error statusCode={404} />;
-  if (artworkList) {
+  else if (!artworkList) return null;
+  else if (artworkList.length === 0) {
+    return (
+      <Card>
+        <Card.Body>
+          <Card.Title>Nothing Here</Card.Title>
+          <Card.Text>Try searching for something else.</Card.Text>
+        </Card.Body>
+      </Card>
+    );
+  } else if (artworkList.length > 0) {
     return (
       <>
         <Row className="gy-4">
-          {artworkList.length > 0 ? (
-            artworkList[page - 1].map((art) => {
-              return (
-                <Col lg={3} key={art}>
-                  <ArtworkCard objectID={art} />
-                </Col>
-              );
-            })
-          ) : (
-            <Card>
-              <Card.Body>
-                <h4>Nothing Here</h4>
-                Try searching for something else.
-              </Card.Body>
-            </Card>
-          )}
+          {artworkList[page - 1].map((art) => (
+            <Col lg={3} key={art}>
+              <ArtworkCard objectID={art} />
+            </Col>
+          ))}
         </Row>
         <Row>
-          {artworkList.length > 0 ? (
-            <Col>
-              <br />
-              <Pagination>
-                <Pagination.Prev onClick={previousPage} />
-                <Pagination.Item>{page}</Pagination.Item>
-                <Pagination.Next onClick={nextPage} />
-              </Pagination>
-            </Col>
-          ) : (
-            ""
-          )}
+          <Col>
+            <br />
+            <Pagination>
+              <Pagination.Prev onClick={previousPage} />
+              <Pagination.Item>{page}</Pagination.Item>
+              <Pagination.Next onClick={nextPage} />
+            </Pagination>
+          </Col>
         </Row>
       </>
     );
-  } else {
-    return null;
   }
 }
 

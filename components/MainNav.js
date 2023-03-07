@@ -10,6 +10,7 @@ function MainNav() {
   function handleSubmit(e) {
     e.preventDefault();
     //console.log(searchVal); //Comment latter
+    e.target.reset();
     router.push(`/artwork?title=true&q=${searchVal}`);
   }
 
