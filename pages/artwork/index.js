@@ -5,6 +5,7 @@ import Card from "react-bootstrap/Card";
 import useSWR from "swr";
 import ArtworkCard from "@/components/ArtworkCard";
 import Error from "next/error";
+import validObjectIDList from "@/public/data/validObjectIDList.json";
 
 function Artwork() {
   const PER_PAGE = 12;
@@ -12,6 +13,7 @@ function Artwork() {
   const [page, setPage] = useState(1);
   //Apply useRouter to get the full value of the query string
   const router = useRouter();
+
   let finalQuery = router.asPath.split("?")[1];
 
   const { data, error } = useSWR(
@@ -21,9 +23,14 @@ function Artwork() {
   useEffect(() => {
     if (data) {
       let results = [];
+      //filter all objectID values in the validObjectIDList such that
+      //  it only contains values that are also returned from our search.
+      let filteredResults = validObjectIDList.objectIDs.filter((x) =>
+        data.objectIDs?.includes(x)
+      );
       //creating a 2D array of data for paging that we can set in the state as "artworkList"
-      for (let i = 0; i < data?.objectIDs?.length; i += PER_PAGE) {
-        const chunk = data?.objectIDs.slice(i, i + PER_PAGE);
+      for (let i = 0; i < filteredResults.length; i += PER_PAGE) {
+        const chunk = filteredResults.slice(i, i + PER_PAGE);
         results.push(chunk);
       }
       setArtworkList(results);
