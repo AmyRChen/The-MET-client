@@ -76,13 +76,14 @@ function ArtworkCardDetail(props) {
             <br />
             <strong>Dimensions: </strong>
             {data.dimensions ? <>{data.dimensions}</> : "N/A"}
-            <Button
-              variant={showAdded ? "dark" : "outline-dark"}
-              onClick={favouritesClicked}
-            >
-              {showAdded ? "+ Favourite (added)" : "+ Favourite"}
-            </Button>
           </Card.Text>
+          <br />
+          <Button
+            variant={showAdded ? "dark" : "outline-dark"}
+            onClick={favouritesClicked}
+          >
+            {showAdded ? "+ Favourite (added)" : "+ Favourite"}
+          </Button>
         </Card.Body>
       </Card>
     );
