@@ -20,7 +20,7 @@ function MainNav() {
 
   function handleSubmit(e, searchVal) {
     //add the computed queryString value to the searchHistory.
-    let queryString = `title=true&q=${searchVal}`; //TODO: fix undefined
+    let queryString = `title=true&q=${searchVal}`;
     setSearchHistory((current) => [...current, queryString]);
 
     e.preventDefault();
