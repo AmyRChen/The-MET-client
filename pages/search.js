@@ -2,9 +2,13 @@ import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { Row, Col } from "react-bootstrap";
 import { Form, Button } from "react-bootstrap";
+import { useAtom } from "jotai";
+import { searchHistoryAtom } from "@/store";
 
 function Search() {
   const router = useRouter();
+  const [searchHistory, setSearchHistory] = useAtom(searchHistoryAtom);
+
   const {
     register,
     handleSubmit,
@@ -19,6 +23,7 @@ function Search() {
       q: "",
     },
   });
+
   function submitForm(data) {
     let queryString = "";
     queryString += `${data.searchBy}=true`;
@@ -30,6 +35,8 @@ function Search() {
     }
     queryString += `&isOnView=${data.isOnView}&isHighlight=${data.isHighlight}&q=${data.q}`;
 
+    //add the computed queryString value to the searchHistory.
+    setSearchHistory((current) => [...current, queryString]);
     router.push(`/artwork?${queryString}`); //CHECK
   }
 

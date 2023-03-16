@@ -1,3 +1,5 @@
 import { atom } from "jotai";
 
-export const favouritesAtom = atom([]); //Set as empty array
+//Set as empty array
+export const favouritesAtom = atom([]);
+export const searchHistoryAtom = atom([]);
