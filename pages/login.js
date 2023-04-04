@@ -69,17 +69,16 @@ export default function Login(props) {
         </Form.Group>
         <br />
 
-        <Button variant="secondary" className="pull-right" type="submit">
-          Login
-        </Button>
-
-        <br />
         {warning && (
           <>
             <br />
             <Alert variant="danger">{warning}</Alert>
           </>
         )}
+        <br />
+        <Button variant="secondary" className="pull-right" type="submit">
+          Login
+        </Button>
       </Form>
     </>
   );

@@ -6,6 +6,8 @@
  *
  * Name: PingJu Chen   Student ID: 151043205   Date: 2023-04-03
  *
+ * Vercel App (Deployed) Link: https://web-422-a6-client.vercel.app/
+ *
  ********************************************************************************/
 import Image from "react-bootstrap/Image";
 import { Row, Col } from "react-bootstrap";
