@@ -1,11 +1,11 @@
 import { useAtom } from "jotai";
 import { favouritesAtom } from "@/store";
-import { Row, Col } from "react-bootstrap";
-import Card from "react-bootstrap/Card";
+import { Row, Col, Card } from "react-bootstrap";
 import ArtworkCard from "@/components/ArtworkCard";
 
 export default function FavouritesList() {
   const [favouritesList, setFavouritesList] = useAtom(favouritesAtom);
+  if (!favouritesList) return null;
 
   return favouritesList.length > 0 ? (
     <>

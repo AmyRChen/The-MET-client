@@ -4,6 +4,7 @@ import { Row, Col } from "react-bootstrap";
 import { Form, Button } from "react-bootstrap";
 import { useAtom } from "jotai";
 import { searchHistoryAtom } from "@/store";
+import { addToHistory } from "@/lib/userData";
 
 function Search() {
   const router = useRouter();
@@ -24,7 +25,7 @@ function Search() {
     },
   });
 
-  function submitForm(data) {
+  async function submitForm(data) {
     let queryString = "";
     queryString += `${data.searchBy}=true`;
     if (data.geoLocation) {
@@ -36,8 +37,8 @@ function Search() {
     queryString += `&isOnView=${data.isOnView}&isHighlight=${data.isHighlight}&q=${data.q}`;
 
     //add the computed queryString value to the searchHistory.
-    setSearchHistory((current) => [...current, queryString]);
-    router.push(`/artwork?${queryString}`); //CHECK
+    setSearchHistory(await addToHistory(queryString));
+    router.push(`/artwork?${queryString}`);
   }
 
   return (

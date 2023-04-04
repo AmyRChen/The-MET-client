@@ -3,23 +3,24 @@ import Card from "react-bootstrap/Card";
 import Error from "next/error";
 import { useAtom } from "jotai";
 import { favouritesAtom } from "@/store";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
+import { addToFavourites, removeFromFavourites } from "@/lib/userData";
 
 function ArtworkCardDetail(props) {
   const [favouritesList, setFavouritesList] = useAtom(favouritesAtom);
-  const [showAdded, setShowAdded] = useState(
-    favouritesList.includes(props.objectID) ? true : false
-  );
+  const [showAdded, setShowAdded] = useState(false);
 
-  function favouritesClicked(e) {
+  useEffect(() => {
+    setShowAdded(favouritesList?.includes(props.objectID));
+  }, [favouritesList, props.objectID]);
+
+  async function favouritesClicked(e) {
     if (showAdded) {
-      setFavouritesList((current) =>
-        current.filter((fav) => fav != props.objectID)
-      );
+      setFavouritesList(await removeFromFavourites(props.objectID));
       setShowAdded(false);
     } else {
-      setFavouritesList((current) => [...current, props.objectID]);
+      setFavouritesList(await addToFavourites(props.objectID));
       setShowAdded(true);
     }
   }
