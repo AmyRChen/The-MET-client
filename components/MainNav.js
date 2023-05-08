@@ -49,7 +49,7 @@ function MainNav() {
         expanded={isExpanded}
       >
         <Container>
-          <Navbar.Brand>PingJu Chen</Navbar.Brand>
+          <Navbar.Brand>The MET Collection</Navbar.Brand>
           <Navbar.Toggle
             aria-controls="basic-navbar-nav"
             onClick={(e) => {
