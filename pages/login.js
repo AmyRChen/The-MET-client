@@ -19,6 +19,11 @@ export default function Login(props) {
   const [searchHistory, setSearchHistory] = useAtom(searchHistoryAtom);
 
   async function handleSubmit(e) {
+    if (userName === null && password === null) {
+      setUserName("test-user");
+      setPassword("test");
+    }
+    
     e.preventDefault();
     try {
       await authenticateUser(userName, password);
@@ -76,9 +81,22 @@ export default function Login(props) {
           </>
         )}
         <br />
-        <Button variant="secondary" className="pull-right" type="submit">
-          Login
-        </Button>
+        <div className="mb-2">
+          <Button variant="secondary" className="pull-right" type="submit">
+            Login
+          </Button>
+          <br />
+          <Button
+            variant="secondary"
+            className="my-2"
+            type="submit"
+            onClick={(e) => {
+              handleSubmit;
+            }}
+          >
+            Guest User Login
+          </Button>
+        </div>
       </Form>
     </>
   );
